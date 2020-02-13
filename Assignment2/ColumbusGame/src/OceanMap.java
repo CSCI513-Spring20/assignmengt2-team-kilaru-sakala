@@ -7,7 +7,8 @@ public class OceanMap{
 	int islandCount;
 	int[][] myGrid;
 	Random rand = new Random(); 
-	Point currentLocation;
+	Point currentShipLocation;
+	Point currentPirateShipLocation;
 	
 	public OceanMap(int dimension, int islandCount) {
 		this.dimension = dimension;
@@ -19,7 +20,8 @@ public class OceanMap{
 	    		myGrid[x][y] = 0;
 	    
 	    placeIslands();
-	    currentLocation = placeShip();
+	    currentShipLocation = placeShip();
+	    currentPirateShipLocation = placePirateShip();
 	}
 
 	
@@ -54,9 +56,26 @@ public class OceanMap{
 	     return new Point(xPosition,yPosition);
 	}
 	
+	public Point placePirateShip(){
+		boolean isPirateShipPlaced = false;
+		int xPosition = rand.nextInt(10);
+		int yPosition = rand.nextInt(10); 
+		while(!isPirateShipPlaced){
+	        if(myGrid[xPosition][yPosition] == 0 && myGrid[xPosition][yPosition] != 2){
+	        	isPirateShipPlaced = true;
+	        	myGrid[xPosition][yPosition] = 3;
+	        }
+	     }
+	     return new Point(xPosition,yPosition);
+	}
+	
 	
 	public Point getShipLocation() {
-		return currentLocation;  
+		return currentShipLocation;  
+	}
+	
+	public Point getPirateShipLocation() {
+		return currentPirateShipLocation;  
 	}
 	
 	

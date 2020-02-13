@@ -1,48 +1,48 @@
 import java.awt.Point;
 
 public class Ship {
-	Point currentLocation;
+	Point currentShipLocation;
     OceanMap oceanMap;
     int[][] myGrid;
 
 	public Ship(OceanMap oceanMap) {
 		this.oceanMap = oceanMap;
-	    this.currentLocation = oceanMap.getShipLocation();
+	    this.currentShipLocation = oceanMap.getShipLocation();
 	    this.myGrid = oceanMap.getMap();
 	}
 	
 	public Point getShipLocation() {
-		return this.currentLocation;
+		return this.currentShipLocation;
 	}
-	//[(this.currentLocation.x) + 1][this.currentLocation.y]
+	
 	public void goEast() {
-		if (this.currentLocation.x<9) {
-			if(this.myGrid[(this.currentLocation.x) + 1][this.currentLocation.y] != 1){
-				this.currentLocation.x++;
+		if (this.currentShipLocation.x<9) {
+			if(this.myGrid[(this.currentShipLocation.x) + 1][this.currentShipLocation.y] != 1){
+				this.currentShipLocation.x++;
 			}
 		}
 	}
 
 	public void goWest() {
-		if(this.currentLocation.x >0){
-			if(this.myGrid[(this.currentLocation.x) - 1][this.currentLocation.y] != 1){
-				this.currentLocation.x--;
+		if(this.currentShipLocation.x >0){
+			if(this.myGrid[(this.currentShipLocation.x) - 1][this.currentShipLocation.y] != 1){
+				this.currentShipLocation.x--;
 			}
 		}   
 	}
 
 	public void goNorth() {
-		if(this.currentLocation.y>0){
-			if(this.myGrid[this.currentLocation.x][this.currentLocation.y-1] != 1){
-				this.currentLocation.y--;
+		if(this.currentShipLocation.y>0){
+			if(this.myGrid[this.currentShipLocation.x][this.currentShipLocation.y-1] != 1){
+				this.currentShipLocation.y--;
 			}
 		}    
 	}
 
 	public void goSouth() {
-		if(this.currentLocation.y<9){
-			if(this.myGrid[this.currentLocation.x][this.currentLocation.y+1] != 1){
-				this.currentLocation.y++;
+		if(this.currentShipLocation.y<9){
+			if(this.myGrid[this.currentShipLocation.x][this.currentShipLocation.y+1] != 1){
+				this.currentShipLocation.y++;
 			}
 		} 
 	}

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -19,12 +20,14 @@ public class OceanExplorer extends Application{
 	final int islandCount = 10;
 	Pane root;
 	Scene scene;
-	Image shipImage;
-	ImageView shipImageView;
+	Image shipImage, pirateShipImage, island;
+	ImageView shipImageView, pirateShipImageView;
 	Ship ship;
 	Point startPosition;
 	int[][] islandMap;
 	OceanMap oceanMap;
+	
+	PirateShip pirateShip;
 
 
 	@Override
@@ -52,10 +55,15 @@ public class OceanExplorer extends Application{
 			for (int y = 0; y < dimension; y++) {
 				Rectangle rect = new Rectangle(x * scale, y * scale, scale, scale);
 				rect.setStroke(Color.BLACK); 
-				if(islandMap[x][y] == 1)
-                    rect.setFill(Color.GREEN);
-				else
-                   rect.setFill(Color.PALETURQUOISE);
+				if(islandMap[x][y] == 1) {
+					island = new Image("\\island.jpg", 50, 50, true, true);
+					ImagePattern imagePattern = new ImagePattern(island);
+					rect.setFill(imagePattern);
+                    //rect.setFill(Color.GREEN);
+				}
+				else {
+					rect.setFill(Color.PALETURQUOISE);
+				}
 				root.getChildren().add(rect); 
 
 			}
@@ -63,11 +71,19 @@ public class OceanExplorer extends Application{
 	}
 	
 	public void loadShipImage() {
-		Image shipImage = new Image("\\ship.png", 50, 50, true, true);
+		shipImage = new Image("\\ship.png", 50, 50, true, true);
 		shipImageView = new ImageView(shipImage);
 		shipImageView.setX(oceanMap.getShipLocation().x * scale);
 		shipImageView.setY(oceanMap.getShipLocation().y * scale);
+		//root.getChildren().add(shipImageView);
+		
+		pirateShipImage = new Image("\\pirateShip.png", 50, 50, true, true);
+		pirateShipImageView = new ImageView(pirateShipImage);
+		pirateShipImageView.setX(oceanMap.getPirateShipLocation().x * scale);
+		pirateShipImageView.setY(oceanMap.getPirateShipLocation().y * scale);
+		
 		root.getChildren().add(shipImageView);
+		root.getChildren().add(pirateShipImageView);
 	}
 	
 	private void startSailing() {
