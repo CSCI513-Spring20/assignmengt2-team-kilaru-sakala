@@ -38,6 +38,8 @@ public class OceanExplorer extends Application{
 		drawMap();
 		
 		ship = new Ship(oceanMap);
+		pirateShip = new PirateShip(oceanMap);
+		ship.registerObserver(pirateShip);
 		
 		loadShipImage();
 		
@@ -59,7 +61,6 @@ public class OceanExplorer extends Application{
 					island = new Image("\\island.jpg", 50, 50, true, true);
 					ImagePattern imagePattern = new ImagePattern(island);
 					rect.setFill(imagePattern);
-                    //rect.setFill(Color.GREEN);
 				}
 				else {
 					rect.setFill(Color.PALETURQUOISE);
@@ -108,6 +109,9 @@ public class OceanExplorer extends Application{
 				}
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
+				pirateShipImageView.setX(pirateShip.getPirateShipLocation().x * scale);
+				pirateShipImageView.setX(pirateShip.getPirateShipLocation().y * scale);
+				
 			}
 		});
 
@@ -115,7 +119,6 @@ public class OceanExplorer extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 
 }

@@ -1,8 +1,10 @@
 import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Ship implements Observable{
+public class Ship extends Observable{
 	List<Observer> observers = new LinkedList<Observer>();
 	Point currentShipLocation;
     OceanMap oceanMap;
@@ -54,23 +56,20 @@ public class Ship implements Observable{
 		} 
 	}
 
-	@Override
 	public void registerObserver(Observer o) {
 		observers.add(o);
 		
 	}
 
-	@Override
 	public void removeObserver(Observer o) {
 		if(observers.contains(o))
 			observers.remove(o);
 		
 	}
 
-	@Override
 	public void notifyObservers() {
 		for (Observer pirateShipObserver: observers)
-			pirateShipObserver.update(this);
+			pirateShipObserver.update(this, pirateShipObserver);
 		
 	}
 }
