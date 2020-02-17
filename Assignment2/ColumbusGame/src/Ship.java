@@ -1,6 +1,9 @@
 import java.awt.Point;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Ship {
+public class Ship implements Observable{
+	List<Observer> observers = new LinkedList<Observer>();
 	Point currentShipLocation;
     OceanMap oceanMap;
     int[][] myGrid;
@@ -19,6 +22,7 @@ public class Ship {
 		if (this.currentShipLocation.x<9) {
 			if(this.myGrid[(this.currentShipLocation.x) + 1][this.currentShipLocation.y] != 1){
 				this.currentShipLocation.x++;
+				notifyObservers();
 			}
 		}
 	}
@@ -27,6 +31,7 @@ public class Ship {
 		if(this.currentShipLocation.x >0){
 			if(this.myGrid[(this.currentShipLocation.x) - 1][this.currentShipLocation.y] != 1){
 				this.currentShipLocation.x--;
+				notifyObservers();
 			}
 		}   
 	}
@@ -35,6 +40,7 @@ public class Ship {
 		if(this.currentShipLocation.y>0){
 			if(this.myGrid[this.currentShipLocation.x][this.currentShipLocation.y-1] != 1){
 				this.currentShipLocation.y--;
+				notifyObservers();
 			}
 		}    
 	}
@@ -43,7 +49,28 @@ public class Ship {
 		if(this.currentShipLocation.y<9){
 			if(this.myGrid[this.currentShipLocation.x][this.currentShipLocation.y+1] != 1){
 				this.currentShipLocation.y++;
+				notifyObservers();
 			}
 		} 
+	}
+
+	@Override
+	public void registerObserver(Observer o) {
+		observers.add(o);
+		
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		if(observers.contains(o))
+			observers.remove(o);
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer pirateShipObserver: observers)
+			pirateShipObserver.update(this);
+		
 	}
 }

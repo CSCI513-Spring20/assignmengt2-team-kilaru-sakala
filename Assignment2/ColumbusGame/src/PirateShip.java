@@ -1,7 +1,8 @@
 import java.awt.Point;
 
-public class PirateShip {
-	Point currentPirateShipLocation;
+public class PirateShip implements Observer{
+	Point currentShipPosition; //Current position of the ship
+	Point currentPirateShipLocation; //Current position of the pirate ship
     OceanMap oceanMap;
     int[][] myGrid;
 
@@ -13,5 +14,18 @@ public class PirateShip {
 	
 	public Point getShipLocation() {
 		return this.currentPirateShipLocation;
+	}
+
+	@Override
+	public void update(Ship ship) {
+		if(ship instanceof Ship){
+			currentShipPosition = ((Ship)ship).getShipLocation();
+			movePirateShip();
+		  }
+		
+	}
+	
+	public void movePirateShip(){
+		
 	}
 }
