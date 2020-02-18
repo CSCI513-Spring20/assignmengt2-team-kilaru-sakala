@@ -18,16 +18,18 @@ public class OceanExplorer extends Application{
 	final int dimension = 10;
 	final int scale = 50;
 	final int islandCount = 10;
+	final int pirateShipsCount = 2;
 	Pane root;
 	Scene scene;
 	Image shipImage, pirateShipImage, island;
-	ImageView shipImageView, pirateShipImageView;
+	ImageView shipImageView,pirateShip1ImageView, pirateShip2ImageView;
 	Ship ship;
 	Point startPosition;
 	int[][] islandMap;
 	OceanMap oceanMap;
 	
-	PirateShip pirateShip;
+	PirateShip pirateShip1;
+	PirateShip pirateShip2;
 
 
 	@Override
@@ -38,8 +40,16 @@ public class OceanExplorer extends Application{
 		drawMap();
 		
 		ship = new Ship(oceanMap);
-		pirateShip = new PirateShip(oceanMap);
-		ship.registerObserver(pirateShip);
+		
+		pirateShip1 = new PirateShip(oceanMap);
+		pirateShip2 = new PirateShip(oceanMap);
+		
+		pirateShip1.placePirateShip();
+		pirateShip2.placePirateShip();
+		
+		ship.registerObserver(pirateShip1);
+		ship.registerObserver(pirateShip2);
+		
 		
 		loadShipImage();
 		
@@ -76,15 +86,20 @@ public class OceanExplorer extends Application{
 		shipImageView = new ImageView(shipImage);
 		shipImageView.setX(oceanMap.getShipLocation().x * scale);
 		shipImageView.setY(oceanMap.getShipLocation().y * scale);
-		//root.getChildren().add(shipImageView);
 		
 		pirateShipImage = new Image("\\pirateShip.png", 50, 50, true, true);
-		pirateShipImageView = new ImageView(pirateShipImage);
-		pirateShipImageView.setX(oceanMap.getPirateShipLocation().x * scale);
-		pirateShipImageView.setY(oceanMap.getPirateShipLocation().y * scale);
+		pirateShip1ImageView = new ImageView(pirateShipImage);
+        pirateShip1ImageView.setX(pirateShip1.getPirateShipLocation().x * scale);
+        pirateShip1ImageView.setY(pirateShip1.getPirateShipLocation().y * scale);
+        root.getChildren().add(pirateShip1ImageView);
+        
+        pirateShip2ImageView = new ImageView(pirateShipImage);
+        pirateShip2ImageView.setX(pirateShip2.getPirateShipLocation().x * scale);
+        pirateShip2ImageView.setY(pirateShip2.getPirateShipLocation().y * scale);
+        root.getChildren().add(pirateShip2ImageView);
+		
 		
 		root.getChildren().add(shipImageView);
-		root.getChildren().add(pirateShipImageView);
 	}
 	
 	private void startSailing() {
@@ -109,9 +124,10 @@ public class OceanExplorer extends Application{
 				}
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
-				pirateShipImageView.setX(pirateShip.getPirateShipLocation().x * scale);
-				pirateShipImageView.setY(pirateShip.getPirateShipLocation().y * scale);
-				
+				pirateShip1ImageView.setX(pirateShip1.getPirateShipLocation().x * scale);
+                pirateShip1ImageView.setY(pirateShip1.getPirateShipLocation().y * scale);
+                pirateShip2ImageView.setX(pirateShip2.getPirateShipLocation().x * scale);
+                pirateShip2ImageView.setY(pirateShip2.getPirateShipLocation().y * scale);
 			}
 		});
 

@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.Random;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -7,15 +8,34 @@ public class PirateShip implements Observer{
 	Point currentPirateShipLocation; //Current position of the pirate ship
     OceanMap oceanMap;
     int[][] myGrid;
+    Random rand = new Random(); 
 
 	public PirateShip(OceanMap oceanMap) {
 		this.oceanMap = oceanMap;
-	    this.currentPirateShipLocation = oceanMap.getPirateShipLocation();
 	    this.myGrid = oceanMap.getMap();
 	}
 	
 	public Point getPirateShipLocation() {
 		return this.currentPirateShipLocation;
+	}
+	
+	public void placePirateShip(){
+		boolean isPirateShipPlaced = false;
+		int xPosition = 0;
+		int yPosition = 0;
+		while(!isPirateShipPlaced){
+			xPosition = rand.nextInt(10);
+			yPosition = rand.nextInt(10);
+			while(myGrid[xPosition][yPosition] == 3){
+				xPosition = rand.nextInt(10);
+				yPosition = rand.nextInt(10);
+			}
+	        if(myGrid[xPosition][yPosition] == 0 && myGrid[xPosition][yPosition] != 2 && myGrid[xPosition][yPosition] != 3){
+	        	isPirateShipPlaced = true;
+	        	myGrid[xPosition][yPosition] = 3;
+	        }
+	     }
+		this.currentPirateShipLocation = new Point(xPosition,yPosition);
 	}
 	
 	@Override
