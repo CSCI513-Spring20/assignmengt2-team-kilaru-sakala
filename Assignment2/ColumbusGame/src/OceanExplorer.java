@@ -30,6 +30,8 @@ public class OceanExplorer extends Application{
 	
 	PirateShip pirateShip1;
 	PirateShip pirateShip2;
+	
+	boolean foundTarget = false;
 
 
 	@Override
@@ -106,32 +108,40 @@ public class OceanExplorer extends Application{
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {
-				switch (ke.getCode()) {
-				case RIGHT:
-					ship.goEast();
-					break;
-				case LEFT:
-					ship.goWest();
-					break;
-				case UP:
-					ship.goNorth();
-					break;
-				case DOWN:
-					ship.goSouth();
-					break;
-				default:
-					break;
-				}
+				if(!foundTarget)
+					switch (ke.getCode()) {
+					case RIGHT:
+						ship.goEast();
+						break;
+					case LEFT:
+						ship.goWest();
+						break;
+					case UP:
+						ship.goNorth();
+						break;
+					case DOWN:
+						ship.goSouth();
+						break;
+					default:
+						break;
+					}
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
 				pirateShip1ImageView.setX(pirateShip1.getPirateShipLocation().x * scale);
                 pirateShip1ImageView.setY(pirateShip1.getPirateShipLocation().y * scale);
                 pirateShip2ImageView.setX(pirateShip2.getPirateShipLocation().x * scale);
                 pirateShip2ImageView.setY(pirateShip2.getPirateShipLocation().y * scale);
+                
+                
+             // Check for "end of game" -- Target found!
+        		if(ship.getShipLocation().equals(pirateShip1.getPirateShipLocation()) || ship.getShipLocation().equals(pirateShip2.getPirateShipLocation())){	
+        			foundTarget = true;
+        		}	
 			}
 		});
 
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);
