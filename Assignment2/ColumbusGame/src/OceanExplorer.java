@@ -110,7 +110,7 @@ public class OceanExplorer extends Application{
 				shipImageView.setX(ship.getShipLocation().x * scale);
 				shipImageView.setY(ship.getShipLocation().y * scale);
 				pirateShipImageView.setX(pirateShip.getPirateShipLocation().x * scale);
-				pirateShipImageView.setX(pirateShip.getPirateShipLocation().y * scale);
+				pirateShipImageView.setY(pirateShip.getPirateShipLocation().y * scale);
 				
 			}
 		});

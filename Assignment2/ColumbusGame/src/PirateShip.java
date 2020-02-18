@@ -27,33 +27,32 @@ public class PirateShip implements Observer{
 		
 	}
 	
-	//@Override
-	public void update(Ship ship) {
-		if(ship instanceof Ship){
-			this.currentShipPosition = ((Ship)ship).getShipLocation();
-			movePirateShip();
-		  }
+	public void movePirateShip(){  
+		int ship_x = this.currentShipPosition.x;
+		int ship_y = this.currentShipPosition.y;
+		int pship_x = this.currentPirateShipLocation.x; 
+		int pship_y = this.currentPirateShipLocation.y;
 		
-	}
-	
-	public void movePirateShip(){
-		
-		if (this.currentPirateShipLocation.x - this.currentShipPosition.x < 0) {
-			this.currentPirateShipLocation.x++;
+		if (pship_x <9 && (pship_x - ship_x < 0)) {
+			if(this.myGrid[(pship_x) + 1][pship_y] != 1) {
+				this.currentPirateShipLocation.x++;
+			}
 		}
-		else {
-			this.currentPirateShipLocation.x--;
+		else if(pship_x>0 && (pship_x - ship_x > 0)){
+			if(this.myGrid[(pship_x) - 1][pship_y] != 1){
+				this.currentPirateShipLocation.x--;
+			}
 		 }
 		 
-		if (this.currentPirateShipLocation.y - this.currentShipPosition.y < 0) {
-			 this.currentPirateShipLocation.y++;
+		if (pship_y<9 && (pship_y - ship_y < 0)) {
+			if(this.myGrid[pship_x][pship_y+1] != 1){
+				this.currentPirateShipLocation.y++;
+			}
 		 }
-		 else {
-			 this.currentPirateShipLocation.y--;
-		 }
-		
+		 else if(pship_y>0 && (pship_y - ship_y > 0)){
+			 if(this.myGrid[pship_x][pship_y-1] != 1) {
+				 this.currentPirateShipLocation.y--;
+			 }
+		 }	
 	}
-
-	
-
 }
