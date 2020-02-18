@@ -9,6 +9,7 @@ public class OceanMap{
 	Random rand = new Random(); 
 	Point currentShipLocation;
 	
+	//Constructor of the class to initialize grid and place the ship
 	public OceanMap(int dimension, int islandCount) {
 		this.dimension = dimension;
 		this.islandCount = islandCount;
@@ -29,6 +30,7 @@ public class OceanMap{
 	 }
 	
 	
+	// To place  islands on the grid
 	public void placeIslands(){
 		int count = this.islandCount;
 		do{
@@ -41,6 +43,7 @@ public class OceanMap{
 		}while(count>0);
 	}
 	
+	// To place ship on the grid
 	public Point placeShip(){
 		boolean isShipPlaced = false;
 		int xPosition = 0;
@@ -57,6 +60,7 @@ public class OceanMap{
 	}
 	
 	
+	// returns the current ship position
 	public Point getShipLocation() {
 		return currentShipLocation;  
 	}

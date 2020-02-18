@@ -1,3 +1,4 @@
+
 import java.awt.Point;
 
 import javafx.application.Application;
@@ -12,13 +13,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class OceanExplorer extends Application{
 	
-	final int dimension = 10;
+	final int dimension = 10; 
 	final int scale = 50;
-	final int islandCount = 10;
-	final int pirateShipsCount = 2;
+	final int islandCount = 10; // Variable to denote number of Islands
 	Pane root;
 	Scene scene;
 	Image shipImage, pirateShipImage, island;
@@ -27,6 +28,7 @@ public class OceanExplorer extends Application{
 	Point startPosition;
 	int[][] islandMap;
 	OceanMap oceanMap;
+	Button button;
 	
 	PirateShip pirateShip1;
 	PirateShip pirateShip2;
@@ -36,6 +38,7 @@ public class OceanExplorer extends Application{
 
 	@Override
 	public void start(Stage oceanStage) throws Exception {
+		foundTarget = false;
 		oceanMap = new OceanMap(dimension, islandCount);
 		islandMap = oceanMap.getMap();
 		root = new AnchorPane();
@@ -52,10 +55,25 @@ public class OceanExplorer extends Application{
 		ship.registerObserver(pirateShip1);
 		ship.registerObserver(pirateShip2);
 		
+		//logic to place a reset button and on click of button all the islands and ships will be placed in new positions 
+		button = new Button("RESET");
+		button.setPrefSize(50, 50);
+		button.setLayoutX(250);
+		button.setLayoutY(500);
+		button.setOnAction(event -> {
+			try {
+				start(oceanStage);
+				
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+		});
+		
+		
 		
 		loadShipImage();
 		
-		scene = new Scene(root, 500, 500);
+		scene = new Scene(root, 500, 550);
 		oceanStage.setTitle("Christopher columbus Sails The Blue Ocean");
 		oceanStage.setScene(scene);
 		oceanStage.show();
@@ -64,6 +82,7 @@ public class OceanExplorer extends Application{
 		
 	}
 	
+	//sets islands and ocean
 	public void drawMap() {
 		for (int x = 0; x < dimension; x++) {
 			for (int y = 0; y < dimension; y++) {
@@ -83,6 +102,8 @@ public class OceanExplorer extends Application{
 		}
 	}
 	
+	
+	// To Load Ship Image
 	public void loadShipImage() {
 		shipImage = new Image("\\ship.png", 50, 50, true, true);
 		shipImageView = new ImageView(shipImage);
@@ -102,8 +123,11 @@ public class OceanExplorer extends Application{
 		
 		
 		root.getChildren().add(shipImageView);
+		root.getChildren().add(button);
 	}
 	
+	
+	// To Move the Ship based on Keys pressed
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override

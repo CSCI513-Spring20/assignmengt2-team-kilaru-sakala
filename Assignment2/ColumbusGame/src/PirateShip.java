@@ -10,15 +10,18 @@ public class PirateShip implements Observer{
     int[][] myGrid;
     Random rand = new Random(); 
 
+    //COnstructor of the class
 	public PirateShip(OceanMap oceanMap) {
 		this.oceanMap = oceanMap;
 	    this.myGrid = oceanMap.getMap();
 	}
 	
+	//returns the pirate ship current position
 	public Point getPirateShipLocation() {
 		return this.currentPirateShipLocation;
 	}
 	
+	// initial positions of the pirate ships
 	public void placePirateShip(){
 		boolean isPirateShipPlaced = false;
 		int xPosition = 0;
@@ -47,6 +50,7 @@ public class PirateShip implements Observer{
 		
 	}
 	
+	//updates the position of pirate ship based on movement of ship
 	public void movePirateShip(){  
 		int ship_x = this.currentShipPosition.x;
 		int ship_y = this.currentShipPosition.y;
