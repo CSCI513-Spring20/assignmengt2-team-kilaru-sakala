@@ -53,26 +53,52 @@ public class PirateShip implements Observer{
 		int pship_x = this.currentPirateShipLocation.x; 
 		int pship_y = this.currentPirateShipLocation.y;
 		
-		if (pship_x <9 && (pship_x - ship_x < 0)) {
-			if(this.myGrid[(pship_x) + 1][pship_y] != 1) {
+		if (pship_x <9 && (pship_x - ship_x < 0) && pship_y<9 && (pship_y - ship_y < 0)) {
+			if(this.myGrid[(pship_x) + 1][pship_y + 1] != 1) {
 				this.currentPirateShipLocation.x++;
-			}
-		}
-		else if(pship_x>0 && (pship_x - ship_x > 0)){
-			if(this.myGrid[(pship_x) - 1][pship_y] != 1){
-				this.currentPirateShipLocation.x--;
-			}
-		 }
-		 
-		if (pship_y<9 && (pship_y - ship_y < 0)) {
-			if(this.myGrid[pship_x][pship_y+1] != 1){
 				this.currentPirateShipLocation.y++;
 			}
+		}
+		
+		else if(pship_x <9 && (pship_x - ship_x < 0) && pship_y >0 && (pship_y - ship_y > 0)) {
+			if(this.myGrid[(pship_x) + 1][pship_y - 1] != 1) {
+				this.currentPirateShipLocation.x++;
+				this.currentPirateShipLocation.y--;
+			}
+		}
+		else if(pship_x >0 && (pship_x - ship_x > 0) && pship_y >0 && (pship_y - ship_y > 0)) {
+			if(this.myGrid[(pship_x) - 1][pship_y - 1] != 1) {
+				this.currentPirateShipLocation.x--;
+				this.currentPirateShipLocation.y--;
+			}
+		}
+		else if(pship_x >0 && (pship_x - ship_x > 0) && pship_y <9 && (pship_y - ship_y < 0)) {
+			if(this.myGrid[(pship_x) - 1][pship_y + 1] != 1) {
+				this.currentPirateShipLocation.x--;
+				this.currentPirateShipLocation.y++;
+			}
+		}
+		else if(pship_x <9 && (pship_x - ship_x < 0)) {
+			if(this.myGrid[(pship_x) + 1][pship_y] != 1) {
+				this.currentPirateShipLocation.x++;
+			}	 
 		 }
-		 else if(pship_y>0 && (pship_y - ship_y > 0)){
-			 if(this.myGrid[pship_x][pship_y-1] != 1) {
-				 this.currentPirateShipLocation.y--;
-			 }
-		 }	
+		 else if (pship_x >0 && (pship_x - ship_x > 0)){
+			 if(this.myGrid[(pship_x) - 1][pship_y] != 1) {
+				 this.currentPirateShipLocation.x--;
+			 }	 
+		 }
+		 
+		 else if (pship_y <9 && (pship_y - ship_y < 0)) {
+			 if(this.myGrid[(pship_x)][pship_y +1] != 1) {
+				 this.currentPirateShipLocation.y++;
+			 }	 
+		 }
+		 else if (pship_y >0 && (pship_y - ship_y > 0)){
+			if(this.myGrid[(pship_x)][pship_y - 1] != 1) {
+				this.currentPirateShipLocation.y--;
+			} 
+		 }
+		
 	}
 }
